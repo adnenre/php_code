@@ -9,11 +9,12 @@ class User {
     }
 
     public function getName() {
-        return $this->name;
+
+        return $this->name . "\n";
     }
 
     public function getEmail() {
-        return $this->email;
+        return $this->email . "\n";
     }
 
     public function setName($name) {
@@ -24,15 +25,15 @@ class User {
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->email = $email;
         } else {
-            echo "Invalid email format.<br>";
+            echo "Invalid email format.\n";
         }
     }
 }
 
 // Usage
 $user = new User("John Doe", "john.doe@example.com");
-echo $user->getName();  // Output: John Doe
-echo $user->getEmail(); // Output: john.doe@example.com
+echo "name : " . $user->getName();  // Output: John Doe
+echo "Email : " . $user->getEmail(); // Output: john.doe@example.com
 
 // Attempting to set invalid email
-$user->setEmail("invalid-email");  // Output: Invalid email format.
+$user->setEmail("a.doe.com");  // Output: Invalid email format.
