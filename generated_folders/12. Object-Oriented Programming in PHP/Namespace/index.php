@@ -14,7 +14,7 @@ use App\Product\Product;
 // create instance of User and Product 
 
 $user = new User('Jhone');
-$Profile = new Profile($user, "Software Developer");
+$profile = new Profile($user, "Software Developer");
 $product = new Product('Laptop', 1000);
 
 
