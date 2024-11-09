@@ -94,7 +94,7 @@ function sanitizeInput($data) {
     <button type="submit">Register</button> <!-- Submit button to send form data -->
 </form>
 
-<!-- 
+<!--
 1. Process the Form Data
     We first check if the form is submitted using the POST method with $_SERVER['REQUEST_METHOD'] === 'POST'. The form will only be processed when the user submits the form.
 2. Sanitize User Inputs
