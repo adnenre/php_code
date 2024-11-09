@@ -56,17 +56,14 @@
     </div>
 
     <script>
-      // Function to fetch autocomplete suggestions from the server
+      let debounceTimer;
+
+      // Function to fetch autocomplete suggestions from the server using fetch
       function getAutocompleteSuggestions(prefix) {
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", "autocomplete.php?prefix=" + prefix, true);
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState == 4 && xhr.status == 200) {
-            const suggestions = JSON.parse(xhr.responseText);
-            showSuggestions(suggestions);
-          }
-        };
-        xhr.send();
+        fetch("autocomplete.php?prefix=" + encodeURIComponent(prefix))
+          .then((response) => response.json()) // Parse the JSON response
+          .then((suggestions) => showSuggestions(suggestions))
+          .catch((error) => console.error("Error fetching data:", error));
       }
 
       // Function to display suggestions in the dropdown
@@ -75,10 +72,12 @@
           "autocomplete-results"
         );
         resultsContainer.innerHTML = ""; // Clear previous suggestions
+
         if (suggestions.length === 0) {
           resultsContainer.style.display = "none";
           return;
         }
+
         resultsContainer.style.display = "block";
         suggestions.forEach(function (suggestion) {
           const li = document.createElement("li");
@@ -96,8 +95,15 @@
         .getElementById("autocomplete-input")
         .addEventListener("input", function () {
           const prefix = this.value;
+
+          // Clear previous debounce timer
+          clearTimeout(debounceTimer);
+
           if (prefix.length > 0) {
-            getAutocompleteSuggestions(prefix);
+            // Set a new timeout to trigger the AJAX request after 500ms
+            debounceTimer = setTimeout(function () {
+              getAutocompleteSuggestions(prefix);
+            }, 500); // 500ms debounce
           } else {
             document.getElementById("autocomplete-results").style.display =
               "none";
