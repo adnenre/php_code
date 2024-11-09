@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Autocomplete with PHP and Trie</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      /* Styling for the input field and dropdown */
+      .autocomplete-container {
+        position: relative;
+        width: 350px;
+        margin: auto;
+      }
+
+      #autocomplete-results {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        border: 1px solid #ccc;
+        background-color: white;
+        max-height: 150px;
+        overflow-y: auto;
+        display: none;
+        padding: 0;
+        list-style: none;
+      }
+
+      #autocomplete-results li {
+        padding: 8px;
+        cursor: pointer;
+      }
+      #autocomplete-input {
+        width: 100%;
+        padding: 0.5rem;
+      }
+
+      #autocomplete-results li:hover {
+        background-color: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Autocomplete input field -->
+    <div class="autocomplete-container">
+      <h2>Real-time Autocomplete Search</h2>
+      <input
+        type="text"
+        id="autocomplete-input"
+        placeholder="Start typing..."
+      />
+      <ul id="autocomplete-results"></ul>
+    </div>
+
+    <script>
+      // Function to fetch autocomplete suggestions from the server
+      function getAutocompleteSuggestions(prefix) {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "autocomplete.php?prefix=" + prefix, true);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            const suggestions = JSON.parse(xhr.responseText);
+            showSuggestions(suggestions);
+          }
+        };
+        xhr.send();
+      }
+
+      // Function to display suggestions in the dropdown
+      function showSuggestions(suggestions) {
+        const resultsContainer = document.getElementById(
+          "autocomplete-results"
+        );
+        resultsContainer.innerHTML = ""; // Clear previous suggestions
+        if (suggestions.length === 0) {
+          resultsContainer.style.display = "none";
+          return;
+        }
+        resultsContainer.style.display = "block";
+        suggestions.forEach(function (suggestion) {
+          const li = document.createElement("li");
+          li.textContent = suggestion;
+          li.onclick = function () {
+            document.getElementById("autocomplete-input").value = suggestion;
+            resultsContainer.style.display = "none"; // Hide results on selection
+          };
+          resultsContainer.appendChild(li);
+        });
+      }
+
+      // Event listener for input field to detect when the user is typing
+      document
+        .getElementById("autocomplete-input")
+        .addEventListener("input", function () {
+          const prefix = this.value;
+          if (prefix.length > 0) {
+            getAutocompleteSuggestions(prefix);
+          } else {
+            document.getElementById("autocomplete-results").style.display =
+              "none";
+          }
+        });
+    </script>
+  </body>
+</html>
