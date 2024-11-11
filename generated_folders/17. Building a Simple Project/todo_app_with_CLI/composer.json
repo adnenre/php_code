@@ -2,6 +2,7 @@
   "name": "adnen/mvc_todo_cli",
   "description": "todo app using COMMAND LINE INTERFACE",
   "type": "project",
+  "version": "1.0.0",
   "authors": [
     {
       "name": "adnen rebai",
