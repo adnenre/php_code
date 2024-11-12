@@ -1,0 +1,221 @@
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,body{
+  height: 100%;
+}
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f4f9;
+}
+
+/* Centered Navbar */
+.navbar {
+  display: flex;
+  justify-content: center;
+  background-color: #333;
+  padding: 1em;
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+}
+
+.navbar li {
+  margin: 0 15px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+/* wrapper */
+
+.main {
+
+display: flex;
+flex-direction: column;
+  width: inherit;
+  height: 100%;
+}
+.wrapper{
+
+ background-color: rgb(221, 221, 221);
+  width:100%;
+ 
+  padding:2rem;
+  height: 100%;
+  overflow: auto; /* Ensures content doesn't overflow the box */
+}
+/* Content Container */
+.container {
+  flex: 1;
+ min-width: 80%;
+  min-height: fit-content;
+  height: 100%;
+  margin:  auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Services Section */
+.services ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.services li {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.services h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Contact Form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top:10px;
+}
+
+input, textarea {
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+ 
+}
+textarea{
+  line-height: 1.5em;
+  height: calc(1.5em * 8); /* 8 rows, with 1.5em line-height */
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+/* Footer */
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 1em;
+ 
+  width: 100%;
+  bottom: 0;
+  font-size: 12px;
+}
+
+/* Responsive Design using Media Queries */
+
+/* For mobile devices (portrait) */
+@media screen and (max-width: 600px) {
+  header h1 {
+      font-size: 1.8em;
+  }
+
+  .navbar ul {
+      flex-direction: column;
+      padding: 0;
+  }
+
+  .navbar li {
+      margin-bottom: 10px;
+  }
+  
+  .container {
+      padding: 15px;
+  }
+
+  .services li {
+      font-size: 1em;
+  }
+
+  form {
+      padding: 10px;
+  }
+
+  button {
+      font-size: 1.1em;
+      padding: 12px;
+  }
+}
+
+/* Container for Services Section */
+.services-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.services-container h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Card Layout */
+.services-list {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));  /* Responsive two-column layout */
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  
+}
+
+.card h5 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .services-container h2 {
+      font-size: 1.75rem;
+  }
+
+  .card h5 {
+      font-size: 1.1rem;
+  }
+}
+/* For tablets a
