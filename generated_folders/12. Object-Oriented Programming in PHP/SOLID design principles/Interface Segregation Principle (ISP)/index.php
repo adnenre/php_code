@@ -1,6 +1,8 @@
 <?php
 
-// Definition: A class should not be forced to implement interfaces it does not use.
+$definition = "A class should not be forced to implement interfaces it does not use." . PHP_EOL;
+echo $definition;
+echo "#########################################################################################";
 interface Printer {
     public function printDocument();
 }
