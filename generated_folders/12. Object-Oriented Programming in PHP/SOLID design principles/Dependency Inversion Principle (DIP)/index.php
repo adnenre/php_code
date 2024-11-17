@@ -1,17 +1,17 @@
 <?php
 // Definition: High-level modules should not depend on low-level modules. Both should depend on abstractions.
 
-interface PaymentProcessor {
+interface PayementProc {
     public function processPayment($amount);
 }
 
-class PayPalProcessor implements PaymentProcessor {
+class PayPalProcessor implements PayementProc {
     public function processPayment($amount) {
         echo "Processing $amount via PayPal" . PHP_EOL;
     }
 }
 
-class StripeProcessor implements PaymentProcessor {
+class StripeProcessor implements PayementProc {
     public function processPayment($amount) {
         echo "Processing $amount via Stripe" . PHP_EOL;
     }
@@ -20,7 +20,7 @@ class StripeProcessor implements PaymentProcessor {
 class PaymentService {
     private $processor;
 
-    public function __construct(PaymentProcessor $processor) {
+    public function __construct(PayementProc $processor) {
         $this->processor = $processor;
     }
 
