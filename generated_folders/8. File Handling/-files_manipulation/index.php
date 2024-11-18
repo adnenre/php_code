@@ -163,3 +163,81 @@ logMessage('Error: Database connection failed');
 logMessage('User performed a search: "PHP logging"');
 
 echo "Messages have been logged.\n";
+
+## File Properties and Checks
+
+
+
+$filename = "example.txt";
+
+// Check if file exists
+if (file_exists($filename)) {
+    echo "File exists";
+}
+
+function printMessage($message) {
+    echo $message . PHP_EOL;
+}
+// File information
+printMessage(filesize($filename));      // Size in bytes
+printMessage(filetype($filename));      // Type (file/directory)
+printMessage(filemtime($filename));     // Last modified time
+printMessage(fileatime($filename));     // Last access time
+printMessage(filectime($filename));     // Creation time
+
+// File permissions
+printMessage('# File Permission');
+echo decoct(fileperms($filename));  // Permissions in octal
+is_readable($filename);             // Check if readable
+is_writable($filename);             // Check if writable
+is_executable($filename);           // Check if executable
+
+// Directory operations
+printMessage('# Directory operations');
+$dir = "my_directory";
+mkdir($dir);                   // Create directory
+rmdir($dir);                   // Remove directory
+is_dir($dir);                  // Check if directory
+
+## File Permissions and Security
+
+printMessage('# File Permissions and Security');
+// Setting file permissions
+chmod("example.txt", 0644);  // rw-r--r--
+chmod("example.txt", 0755);   // rwxr-xr-x
+
+// Safe file operations
+function safeWriteFile($filename, $content) {
+    $tempFile = tempnam(sys_get_temp_dir(), 'tmp_');
+    if (file_put_contents($tempFile, $content) !== false) {
+        if (rename($tempFile, $filename)) {
+            return true;
+        }
+        unlink($tempFile);
+    }
+    return false;
+}
+
+// Directory traversal prevention
+function isValidPath($path) {
+    $realPath = realpath($path);
+    $basePath = realpath('/safe/directory/');
+    return strpos($realPath, $basePath) === 0;
+}
+
+// File upload handling
+function handleFileUpload($uploadedFile) {
+    $allowedTypes = ['image/jpeg', 'image/png'];
+    $maxSize = 5 * 1024 * 1024; // 5MB
+
+    if (!in_array($uploadedFile['type'], $allowedTypes)) {
+        throw new Exception('Invalid file type');
+    }
+
+    if ($uploadedFile['size'] > $maxSize) {
+        throw new Exception('File too large');
+    }
+
+    $destination = 'uploads/' . basename($uploadedFile['name']);
+    move_uploaded_file($uploadedFile['tmp_name'], $destination);
+}
