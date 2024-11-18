@@ -94,3 +94,13 @@ echo "The index of 9 in the array: $key\n";  // Output: 3
 $chunks = array_chunk($array1, 2);
 echo "Array chunked into parts of 2: ";
 print_r($chunks);  // Output: [[0, 1], [8, 9], [7]]
+
+// 18.  Keys and values
+$person = ["name" => "John", "age" => 30];
+echo 'Array keys : ' . implode(',', array_keys($person)) . PHP_EOL;    // ["name", "age"]
+echo 'Array values : ' . implode(',', array_values($person)) . PHP_EOL;   // ["John", 30]
+
+// Sorting
+$numbers = [1, 3, 4, 5, 6, 8, 2];
+sort($numbers);
+echo 'Array sorted : ' . implode(',', $numbers) . PHP_EOL;
